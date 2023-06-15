@@ -55,4 +55,17 @@ export class TimelistingserviceService {
     );
   }
 
+  //update data in database
+  updData(data:data,id:string){
+    this.http.put(`http://localhost:3000/api/tasks/${id}`,data).subscribe(
+      (responseData :any)=>{
+        console.log("Data Updated",responseData)
+      },
+      (error)=>{
+        console.log("error occured",error)
+      }
+    )
+  }
+
+
 }

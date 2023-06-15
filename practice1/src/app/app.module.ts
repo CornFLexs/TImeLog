@@ -15,11 +15,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { HttpClientModule } from '@angular/common/http';
+import { RegesterComponent } from './regester/regester.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TimelistingComponent
+    TimelistingComponent,
+    RegesterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

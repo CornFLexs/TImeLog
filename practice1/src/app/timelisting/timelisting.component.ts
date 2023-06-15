@@ -1,6 +1,8 @@
 import { Component, OnInit ,OnDestroy } from '@angular/core';
 import html2canvas from 'html2canvas';
 import { TimelistingserviceService } from './timelistingservice.service';
+import { RegesterserviceService } from '../regester/regesterservice.service';
+import jwtDecode from 'jwt-decode';
 
 @Component({
   selector: 'app-timelisting',
@@ -20,10 +22,15 @@ export class TimelistingComponent implements OnInit , OnDestroy{
   todayDate: string = "";
   daytmin: number = NaN;
   daythr: number = NaN;
+  id : string = "";
+  username: string="";
+
+
+
 
   DATA: data[] =[];
 
-  constructor(private timelistingservice : TimelistingserviceService) {
+  constructor(private timelistingservice : TimelistingserviceService ,private regesertservice : RegesterserviceService) {
     this.todaydate()
   }
 
@@ -34,6 +41,16 @@ export class TimelistingComponent implements OnInit , OnDestroy{
       this.daytmin = ttime;
       this.daythr = ttime / 60;
     });
+
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.username = this.getUsernameFromToken(token);
+    }
+  }
+
+  getUsernameFromToken(token: string): string {
+    const decodedToken: any = jwtDecode(token);
+    return decodedToken.username;
   }
 
   todaydate() {
@@ -46,10 +63,15 @@ export class TimelistingComponent implements OnInit , OnDestroy{
     this.min = this.calculateTimeDifference(this.st, this.et)
     this.stime = this.convertTo12HourFormat(this.st)
     this.etime = this.convertTo12HourFormat(this.et)
-    this.DATA.push({ Starttime: this.stime.toUpperCase(), Endtime: this.etime.toUpperCase(), Minute: this.min, Taskdesc: this.td, date: this.todayDate })
+    this.DATA.push({ Starttime: this.stime.toUpperCase(), Endtime: this.etime.toUpperCase(), Minute: this.min, Taskdesc: this.td, date: this.todayDate,username:this.username })
 
 
-    this.timelistingservice.createpost({ Starttime: this.stime, Endtime: this.etime, Minute: this.min, Taskdesc: this.td, date: this.todayDate })
+    if (this.edit) {
+      this.timelistingservice.updData({ Starttime: this.stime.toUpperCase(), Endtime: this.etime.toUpperCase(), Minute: this.min, Taskdesc: this.td, date: this.todayDate,username:this.username }, this.id)
+    }
+    else {
+      this.timelistingservice.createpost({ Starttime: this.stime, Endtime: this.etime, Minute: this.min, Taskdesc: this.td, date: this.todayDate,username:this.username })
+    }
 
     this.daytmin += this.min
     this.daythr = (this.daythr * 60 + this.min) / 60
@@ -65,9 +87,9 @@ export class TimelistingComponent implements OnInit , OnDestroy{
     this.st = elem.Starttime;
     this.et = elem.Endtime;
     this.td = elem.Taskdesc;
+    this.id = elem._id;
     const index = this.DATA.indexOf(elem);
     this.DATA.splice(index, 1);
-    this.timelistingservice.delData(elem._id);
   }
 
   //deleting task from list and database
@@ -101,6 +123,10 @@ export class TimelistingComponent implements OnInit , OnDestroy{
         link.click();
       });
     }
+  }
+
+  onLogout(){
+    this.regesertservice.logout();
   }
 
   //other neccessary functions
@@ -154,5 +180,6 @@ export interface data {
   Taskdesc: string,
   date: string;
   id?: string;
+  username: string;
 }
 

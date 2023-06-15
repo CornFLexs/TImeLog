@@ -1,3 +1,4 @@
+<button mat-raised-button color="primary" [style]="{ 'float':'right'}" (click)="onLogout()">logout</button><br>
 <mat-form-field class="date">
   <input matInput [(ngModel)]="todayDate" type="date" name="date" >
 </mat-form-field>
@@ -17,7 +18,7 @@
     <input matInput [(ngModel)]="et" type="time" name="Endtime" />
   </mat-form-field>
   <mat-form-field [style]="{ 'margin-left': '40px', width: '35%' }">
-    <input matInput [(ngModel)]="td" placeholder="Task Details" name="Description" />
+    <input matInput [(ngModel)]="td" placeholder="Task Details" name="Description" autocomplete="off" >
   </mat-form-field>
   <button mat-raised-button color="primary" [style]="{ 'margin-left': '80px' }" (click)="addtask()" *ngIf="!edit">
     ADD
@@ -53,3 +54,9 @@
   <span [style]="{ 'margin-left': '16%' }">Day Total In Minutes : {{ daytmin }}</span>
   <span [style]="{ 'margin-left': '3%' }">Day Total In Hours : {{ daythr | number:'1.0-2'  }}</span>
 </div>
+
+
+
+
+
+

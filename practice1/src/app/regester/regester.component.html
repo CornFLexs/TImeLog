@@ -1,0 +1,15 @@
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <mat-label> User Name </mat-label>
+    <input matInput type="text" [(ngModel)]="name" name="name" placeholder="user name" (ngModelChange)="onDataChange()">
+  </mat-form-field><br>
+  <mat-form-field class="example-full-width">
+    <mat-label> Password </mat-label>
+    <input matInput type="text" [(ngModel)]="password" name="password" (ngModelChange)=" onDataChange()" placeholder="password" autocomplete="off" >
+  </mat-form-field>
+  <div class="wrong-password-alert" *ngIf="incorrect">Aleast 8 character require</div><br>
+  <div class="wrong-password-alert" *ngIf="incorrect1">Username Not Available</div><br>
+  <button mat-raised-button color="primary" [disabled]="disable" (click)="onregester()">Regester</button>
+  <br><div class="comment"> Account Already Exist?<a routerLink="/login">login</a></div>
+</form>
+
