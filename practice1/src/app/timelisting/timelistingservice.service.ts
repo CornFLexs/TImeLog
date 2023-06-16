@@ -12,7 +12,7 @@ export class TimelistingserviceService {
 
    // Add data to the database
    createpost(data: data) {
-    this.http.post('http://localhost:3000/api/tasks', data).subscribe(
+    this.http.post('https://timedlog-backend.onrender.com/api/tasks', data).subscribe(
       (responsedata: any) => {
         console.log(responsedata);
       },
@@ -25,7 +25,7 @@ export class TimelistingserviceService {
   //load data from databse for specific date
   loadData(todayDate:any) {
     return this.http
-      .get<{ [key: string]: any }>(`http://localhost:3000/api/tasks?date=${todayDate}`)
+      .get<{ [key: string]: any }>(`https://timedlog-backend.onrender.com/api/tasks?date=${todayDate}`)
       .pipe(
         map((resdata) => {
           const pdata = [];
@@ -45,7 +45,7 @@ export class TimelistingserviceService {
 
   //delete data from database
   delData(data: string) {
-    this.http.delete(`http://localhost:3000/api/tasks/${data}`).subscribe(
+    this.http.delete(`https://timedlog-backend.onrender.com/api/tasks/${data}`).subscribe(
       () => {
         console.log('Data deleted successfully');
       },
@@ -57,7 +57,7 @@ export class TimelistingserviceService {
 
   //update data in database
   updData(data:data,id:string){
-    this.http.put(`http://localhost:3000/api/tasks/${id}`,data).subscribe(
+    this.http.put(`https://timedlog-backend.onrender.com/api/tasks/${id}`,data).subscribe(
       (responseData :any)=>{
         console.log("Data Updated",responseData)
       },
