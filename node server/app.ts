@@ -24,10 +24,10 @@ app.delete('/api/tasks/:id',deleteData);
 app.put('/api/tasks/:id',updateData)
 
 //REGESTER user 
-app.post('/api/regester', regUser)
+app.post('/api/register', regUser)
 
 //findig user
-app.get('/api/regester', findUser)
+app.get('/api/register', findUser)
 
 // Start the server
 app.listen(3000, () => {
