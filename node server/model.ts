@@ -6,7 +6,8 @@ export interface ITask extends Document {
   Minute: number;
   Taskdesc: string;
   date: string;
-  username:string
+  username:string;
+  email:string;
 }
 
 const taskSchema = new Schema<ITask>({
@@ -15,7 +16,8 @@ const taskSchema = new Schema<ITask>({
   Minute: Number,
   Taskdesc: String,
   date: String,
-  username: String
+  username: String,
+  email:String
 });
 
 export const Task = model<ITask>('Task', taskSchema);

@@ -66,17 +66,18 @@ const updateData = (req: Request, res: Response) => {
 
 const regUser = async (req: Request, res: Response) => {
   try {
-    const { username, password } = req.body;
+    const { username, password, email } = req.body;
     const existingUser = await UserData.findOne({ Username: username }).exec();
+    const existingEmail = await UserData.findOne({ Email: email }).exec();
 
-    if (existingUser) {
+    if (existingUser || existingEmail) {
       res.status(409).send('User already exists');
       return;
     }
 
     const hashPassword = await bcrypt.hash(password, 10);
 
-    const userData: IUserData = new UserData({ Username: username, Password: hashPassword });
+    const userData: IUserData = new UserData({ Username: username, Password: hashPassword, Email: email });
     userData.save()
       .then((savedUserData: IUserData) => {
         res.json(savedUserData);
@@ -84,7 +85,7 @@ const regUser = async (req: Request, res: Response) => {
       })
       .catch((err: Error) => {
         console.error(err);
-        res.status(500).send('Error saving user data in database');
+        res.status(500).send('Error saving user data in the database');
       });
   } catch (error) {
     console.error(error);
@@ -92,17 +93,18 @@ const regUser = async (req: Request, res: Response) => {
   }
 };
 
-const findUser = (req: Request, res: Response) => {
-  const { username, password } = req.query;
 
-  UserData.findOne({ Username: username })
+const findUser = (req: Request, res: Response) => {
+  const { email, password } = req.query;
+
+  UserData.findOne({ Email: email })
     .exec()
     .then(async (userData: IUserData | null) => {
       if (userData) {
         const isPasswordMatch = await bcrypt.compare(password as string, userData.Password);
 
         if (isPasswordMatch) {
-          const token = jwt.sign({ username: userData.Username }, JWT_SECRET, {expiresIn: '1h'});
+          const token = jwt.sign({ username: userData.Username }, JWT_SECRET, { expiresIn: '1h' });
           res.json({ token });
           console.log("Success finding user and generating JWT");
         } else {
