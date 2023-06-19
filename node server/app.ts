@@ -28,7 +28,7 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ['./controller.js'],
+  apis: ['./app.ts'],
 };
 
 // Swagger specification
