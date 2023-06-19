@@ -29,7 +29,52 @@ const swaggerOptions = {
     ],
   },
   apis: ['./app.ts'],
+  components: {
+    schemas: {
+      Task: {
+        type: 'object',
+        properties: {
+          Starttime: {
+            type: 'string',
+          },
+          Endtime: {
+            type: 'string',
+          },
+          Minute: {
+            type: 'number',
+          },
+          Taskdesc: {
+            type: 'string',
+          },
+          date: {
+            type: 'string',
+          },
+          username: {
+            type: 'string',
+          },
+          email: {
+            type: 'string',
+          },
+        },
+      },
+      User: {
+        type: 'object',
+        properties: {
+          Username: {
+            type: 'string',
+          },
+          Password: {
+            type: 'string',
+          },
+          Email: {
+            type: 'string',
+          },
+        },
+      },
+    },
+  },
 };
+
 
 // Swagger specification
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
