@@ -84,8 +84,8 @@ export class TimelistingComponent implements OnInit , OnDestroy{
   //editing task
   edittask(elem: any) {
     this.edit = true
-    this.st = elem.Starttime;
-    this.et = elem.Endtime;
+    this.st = this.convertTo24HourFormat(elem.Starttime);
+    this.et = this.convertTo24HourFormat(elem.Endtime);
     this.td = elem.Taskdesc;
     this.id = elem._id;
     const index = this.DATA.indexOf(elem);
@@ -165,6 +165,15 @@ export class TimelistingComponent implements OnInit , OnDestroy{
       const period = hours < 12 ? 'AM' : 'PM';
       const convertedTime = `${convertedHours}:${minutes.toString().padStart(2, '0')} ${period}`
       return convertedTime
+    }
+
+    convertTo24HourFormat(time: string): string {
+      const [formattedTime, period] = time.split(' ');
+
+      let [hours, minutes] = formattedTime.split(':');
+      hours = period === 'PM' && hours !== '12' ? `${parseInt(hours, 10) + 12}` : hours;
+
+      return `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`;
     }
 
     ngOnDestroy() {

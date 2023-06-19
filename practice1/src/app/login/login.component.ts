@@ -12,7 +12,7 @@ export class LoginComponent {
 
   constructor(private regesterservice : RegesterserviceService, private router : Router){}
 
-  name : string = "";
+  email : string = "";
   password : string = "";
   incorrect :boolean = false;
   disable : boolean = true;
@@ -23,7 +23,7 @@ export class LoginComponent {
   data : userdata[]=[];
 
   onDataChange(){
-    if (this.name.length<1 || this.password.length < 8 || this.name.includes(" ") || this.password.includes(" ")) {
+    if (this.password.length < 8 || !this.email.includes("@") || !this.email.includes(".")) {
       this.disable=true
     }
     else{
@@ -32,7 +32,7 @@ export class LoginComponent {
   }
 
   onlogin() {
-    this.regesterservice.loadData(this.name, this.password)
+    this.regesterservice.loadData(this.email, this.password)
       .subscribe(
         (data) => {
           if (data && data['token']) {

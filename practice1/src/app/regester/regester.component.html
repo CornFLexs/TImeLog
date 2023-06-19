@@ -1,15 +1,41 @@
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <mat-label> User Name </mat-label>
-    <input matInput type="text" [(ngModel)]="name" name="name" placeholder="user name" (ngModelChange)="onDataChange()">
-  </mat-form-field><br>
-  <mat-form-field class="example-full-width">
-    <mat-label> Password </mat-label>
-    <input matInput type="text" [(ngModel)]="password" name="password" (ngModelChange)=" onDataChange()" placeholder="password" autocomplete="off" >
-  </mat-form-field>
-  <div class="wrong-password-alert" *ngIf="incorrect">Aleast 8 character require</div><br>
-  <div class="wrong-password-alert" *ngIf="incorrect1">Username Not Available</div><br>
-  <button mat-raised-button color="primary" [disabled]="disable" (click)="onregester()">Register</button>
-  <br><div class="comment"> Account Already Exist?<a routerLink="/login">login</a></div>
-</form>
-
+<div class="back">
+  <div class="container">
+    <form class>
+      <span class="heading">REGISTER</span><br>
+      <span class="field-title">Username</span><br>
+      <mat-form-field class="example-full-width">
+        <input matInput type="text" [(ngModel)]="name" name="name" placeholder="user name" (ngModelChange)="onDataChange()">
+      </mat-form-field><br>
+      <span class="field-title">Email</span><br>
+      <mat-form-field class="example-full-width">
+        <input matInput type="email" [(ngModel)]="email" name="email" placeholder="user email" (ngModelChange)="onDataChange()">
+      </mat-form-field><br>
+      <span class="field-title">Password</span><br>
+      <mat-form-field class="example-full-width">
+        <input matInput type="password" [(ngModel)]="password" name="password" (ngModelChange)="onDataChange()" placeholder="password" autocomplete="off" [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>
+            <img [src]="hide ? customIcon : customIcon1" [alt]="hide ? 'Show Icon' : 'Hide Icon'">
+          </mat-icon>
+        </button>
+      </mat-form-field><br>
+      <span class="field-title">Confirm Password</span><br>
+      <mat-form-field class="example-full-width"  [style]="{'margin-bottom': '-15px'}">
+        <input matInput type="password" [(ngModel)]="cpassword" name="cpassword" (ngModelChange)="onDataChange()" placeholder="confirm password" autocomplete="off" [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>
+            <img [src]="hide ? customIcon : customIcon1" [alt]="hide ? 'Show Icon' : 'Hide Icon'">
+          </mat-icon>
+        </button>
+      </mat-form-field>
+      <div class="wrong-password-alert" *ngIf="incorrect">Aleast 8 character require</div><br>
+      <div class="wrong-password-alert" *ngIf="incorrect1">Username or Email Not Available</div><br>
+      <div class="wrong-password-alert" *ngIf="incorrect2">Confirm Password Dont match with Password</div><br>
+      <input type="checkbox" id="termsAndConditions" [(ngModel)]="termsAndConditions" name="termsAndConditions" >  <span class="field-title">I agree to the</span><a href="#"> Terms and Conditions</a><br>
+      <div class="wrong-password-alert" *ngIf="incorrect3">Please Agree to terms and conditions</div><br>
+      <button mat-raised-button color="primary" [disabled]="disable" (click)="onregester()" class="example-full-width" [style]="{'height':'50px','margin-top':''}">Register</button>
+      <br>
+      <div class="comment"> Account Already Exist?<a routerLink="/login">login</a></div>
+    </form>
+  </div>
+</div>
