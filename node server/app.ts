@@ -24,7 +24,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'https://timedlog-backend.onrender.com/',
+        url: 'https://timedlog.netlify.app/',
       },
     ],
   },
