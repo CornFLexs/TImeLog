@@ -79,7 +79,7 @@ const swaggerOptions = {
 
 // Resolve JSON references
 const resolveReferences = async () => {
-  const resolvedOptions = await $RefParser.dereference(swaggerOptions);
+  const resolvedOptions = await $RefParser.bundle(swaggerOptions);
   return resolvedOptions;
 };
 
