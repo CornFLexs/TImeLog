@@ -5,6 +5,7 @@ import cors from 'cors';
 import { saveData, findData, deleteData, updateData, regUser, findUser } from './controller';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUI from 'swagger-ui-express';
+import $RefParser from 'json-schema-ref-parser';
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://dikshanshagarwal12002:1234@tasklist.gkjiki2.mongodb.net/');
@@ -76,11 +77,19 @@ const swaggerOptions = {
 };
 
 
-// Swagger specification
-const swaggerSpec = swaggerJSDoc(swaggerOptions);
+// Resolve JSON references
+const resolveReferences = async () => {
+  const parser = new $RefParser();
+  const resolvedOptions = await parser.dereference(swaggerOptions);
+  return resolvedOptions;
+};
 
-// Serve Swagger UI
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+// Swagger specification
+resolveReferences().then((resolvedOptions) => {
+  const swaggerSpec = swaggerJSDoc(resolvedOptions);
+
+  // Serve Swagger UI
+  app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 
 /**
  * @swagger
@@ -216,7 +225,7 @@ app.post('/api/register', regUser);
  */
 app.get('/api/register', findUser);
 
-// Start the server
 app.listen(3000, () => {
   console.log('Server started on port 3000');
+});
 });
