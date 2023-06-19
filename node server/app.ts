@@ -2,7 +2,9 @@ import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import { saveData, findData, deleteData, updateData, regUser,findUser} from './controller';
+import { saveData, findData, deleteData, updateData, regUser, findUser } from './controller';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUI from 'swagger-ui-express';
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://dikshanshagarwal12002:1234@tasklist.gkjiki2.mongodb.net/');
@@ -11,23 +13,163 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// POST route to create a task
+// Swagger options
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Timed Task API',
+      version: '1.0.0',
+      description: 'API endpoints for managing tasks',
+    },
+    servers: [
+      {
+        url: 'https://timedlog-backend.onrender.com/',
+      },
+    ],
+  },
+  apis: ['./controller.js'],
+};
+
+// Swagger specification
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
+
+// Serve Swagger UI
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+
+/**
+ * @swagger
+ * /api/tasks:
+ *   post:
+ *     summary: Create a task
+ *     description: Endpoint to create a new task.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Task'
+ *     responses:
+ *       200:
+ *         description: Task created successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Task'
+ *       500:
+ *         description: Error saving task.
+ */
 app.post('/api/tasks', saveData);
 
-// GET route to retrieve tasks for a specific date
+/**
+ * @swagger
+ * /api/tasks:
+ *   get:
+ *     summary: Get tasks
+ *     description: Endpoint to get all tasks.
+ *     responses:
+ *       200:
+ *         description: Successful operation.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Task'
+ *       500:
+ *         description: Error retrieving tasks.
+ */
 app.get('/api/tasks', findData);
 
-// DELETE route to delete a task
-app.delete('/api/tasks/:id',deleteData);
+/**
+ * @swagger
+ * /api/tasks/{id}:
+ *   delete:
+ *     summary: Delete a task
+ *     description: Endpoint to delete a task.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the task to delete.
+ *     responses:
+ *       200:
+ *         description: Task deleted successfully.
+ *       500:
+ *         description: Error deleting task.
+ */
+app.delete('/api/tasks/:id', deleteData);
 
-// UPDATE route to update task
-app.put('/api/tasks/:id',updateData)
+/**
+ * @swagger
+ * /api/tasks/{id}:
+ *   put:
+ *     summary: Update a task
+ *     description: Endpoint to update a task.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the task to update.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Task'
+ *     responses:
+ *       200:
+ *         description: Task updated successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Task'
+ *       500:
+ *         description: Error updating task.
+ */
+app.put('/api/tasks/:id', updateData);
 
-//REGESTER user 
-app.post('/api/register', regUser)
+/**
+ * @swagger
+ * /api/register:
+ *   post:
+ *     summary: Register a user
+ *     description: Endpoint to register a new user.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       200:
+ *         description: User registered successfully.
+ *       500:
+ *         description: Error registering user.
+ */
+app.post('/api/register', regUser);
 
-//findig user
-app.get('/api/register', findUser)
+/**
+ * @swagger
+ * /api/register:
+ *   get:
+ *     summary: Find a user
+ *     description: Endpoint to find a user.
+ *     responses:
+ *       200:
+ *         description: Successful operation.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       500:
+ *         description: Error finding user.
+ */
+app.get('/api/register', findUser);
 
 // Start the server
 app.listen(3000, () => {
