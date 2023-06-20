@@ -5,8 +5,6 @@ import cors from 'cors';
 import { saveData, findData, deleteData, updateData, regUser, findUser } from './controller';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUI from 'swagger-ui-express';
-import $RefParser from 'json-schema-ref-parser';
-
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://dikshanshagarwal12002:1234@tasklist.gkjiki2.mongodb.net/');
@@ -30,7 +28,6 @@ const swaggerOptions = {
       },
     ],
   },
-  // Add the 'swaggerDefinition' property
   apis: ['./app.ts'],
   components: {
     schemas: {
