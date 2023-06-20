@@ -1,10 +1,11 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import { saveData, findData, deleteData, updateData, regUser, findUser } from './controller';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUI from 'swagger-ui-express';
+import { Task } from './model';
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://dikshanshagarwal12002:1234@tasklist.gkjiki2.mongodb.net/');
@@ -32,30 +33,7 @@ const swaggerOptions = {
   components: {
     schemas: {
       Task: {
-        type: 'object',
-        properties: {
-          Starttime: {
-            type: 'string',
-          },
-          Endtime: {
-            type: 'string',
-          },
-          Minute: {
-            type: 'number',
-          },
-          Taskdesc: {
-            type: 'string',
-          },
-          date: {
-            type: 'string',
-          },
-          username: {
-            type: 'string',
-          },
-          email: {
-            type: 'string',
-          },
-        },
+        $ref: '#/components/schemas/Task'
       },
       User: {
         type: 'object',
