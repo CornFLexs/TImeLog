@@ -5,7 +5,7 @@ import cors from 'cors';
 import { saveData, findData, deleteData, updateData, regUser, findUser } from './controller';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUI from 'swagger-ui-express';
-import { parse } from 'json-schema-deref-sync';
+import $RefParser from 'json-schema-ref-parser';
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://dikshanshagarwal12002:1234@tasklist.gkjiki2.mongodb.net/');
@@ -29,6 +29,7 @@ const swaggerOptions = {
       },
     ],
   },
+  // Add the 'swaggerDefinition' property
   apis: ['./app.ts'],
   components: {
     schemas: {
@@ -77,19 +78,11 @@ const swaggerOptions = {
 };
 
 
-// Resolve JSON references
-const resolveReferences = (schema: object) => {
-  const resolvedSchema = parse(schema);
-  return resolvedSchema;
-};
-
 // Swagger specification
-const resolvedOptions = resolveReferences(swaggerOptions);
-const swaggerSpec = swaggerJSDoc(resolvedOptions);
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
-
-  // Serve Swagger UI
-  app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+// Serve Swagger UI
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 
 /**
  * @swagger
