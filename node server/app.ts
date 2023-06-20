@@ -25,8 +25,8 @@ const swaggerOptions = {
     },
     servers: [
       {
-        // url: 'https://timedlog-backend.onrender.com/',
-         url: 'http://localhost:3000/',
+        url: 'https://timedlog-backend.onrender.com/',
+         //url: 'http://localhost:3000/',
       },
     ],
   },
