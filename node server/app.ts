@@ -25,7 +25,8 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'https://timedlog-backend.onrender.com/',
+        // url: 'https://timedlog-backend.onrender.com/',
+         url: 'http://localhost:3000/',
       },
     ],
   },
@@ -58,6 +59,15 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
  *         username:
  *           type: string
  *         email:
+ *           type: string
+ *     User:
+ *       type: object
+ *       properties:
+ *         Username:
+ *           type: string
+ *         Password:
+ *           type: string
+ *         Email:
  *           type: string
  */
 
