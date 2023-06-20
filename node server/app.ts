@@ -30,35 +30,36 @@ const swaggerOptions = {
     ],
   },
   apis: ['./app.ts'],
-  components: {
-    schemas: {
-      Task: {
-        $ref: '#/components/schemas/Task'
-      },
-      User: {
-        type: 'object',
-        properties: {
-          Username: {
-            type: 'string',
-          },
-          Password: {
-            type: 'string',
-          },
-          Email: {
-            type: 'string',
-          },
-        },
-      },
-    },
-  },
 };
-
 
 // Swagger specification
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
 // Serve Swagger UI
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Task:
+ *       type: object
+ *       properties:
+ *         Starttime:
+ *           type: string
+ *         Endtime:
+ *           type: string
+ *         Minute:
+ *           type: number
+ *         Taskdesc:
+ *           type: string
+ *         date:
+ *           type: string
+ *         username:
+ *           type: string
+ *         email:
+ *           type: string
+ */
 
 /**
  * @swagger
