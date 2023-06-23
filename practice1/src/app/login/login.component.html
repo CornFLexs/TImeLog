@@ -1,4 +1,4 @@
-<div class="back">
+<!-- <div class="back">
   <div class="container">
     <form>
       <span class="heading">LOGIN</span><br>
@@ -17,11 +17,45 @@
             <img [src]="hide ? customIcon : customIcon1" [alt]="hide ? 'Show Icon' : 'Hide Icon'">
           </mat-icon>
         </button>
-      </mat-form-field>
+      </mat-form-field><br>
+        <input type="checkbox" [(ngModel)]="rememberme" name="remme"><span class="field-title">Remember me</span>
+      <br>
       <div class="wrong-password-alert" *ngIf="incorrect">Email or Password error</div><br>
       <button mat-raised-button color="primary" [disabled]="disable" (click)="onlogin()" [style]="{'height':'50px'}"  class="example-full-width">Login</button>
       <br>
       <div class="comment"> New User?<a routerLink="/register"> Register</a></div>
     </form>
   </div>
-</div>
+</div> -->
+
+<div class="back">
+  <mat-card align="center" class="container">
+
+    <mat-card-content class="mat-headline-3 heading">Login</mat-card-content>
+
+    <mat-card-content>
+
+      <mat-form-field class="fields" floatLabel="always" appearance="outline">
+        <mat-label class="field-title">Email</mat-label>
+        <input matInput type="email" [(ngModel)]="email" name="email" (ngModelChange)="onDataChange()" required>
+      </mat-form-field><br>
+
+      <mat-form-field class="fields" floatLabel="always" appearance="outline">
+        <mat-label class="field-title">Password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password" name="password" (ngModelChange)="onDataChange()" autocomplete="off" required>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field><br><br>
+
+        <div class="wrong-password-alert" *ngIf="incorrect">Email or Password error</div>
+
+        <button mat-raised-button color="primary" class="login" [disabled]="disable" (click)="onlogin()">Login</button>
+
+        <div> New User?<a routerLink="/register"> Register</a></div>
+
+
+    </mat-card-content>
+
+    </mat-card>
+  </div>

@@ -1,17 +1,17 @@
-<div class="back">
+<!-- <div class="back">
   <div class="container">
     <form class>
       <span class="heading">REGISTER</span><br>
-      <span class="field-title">Username</span><br>
-      <mat-form-field class="example-full-width">
+      <mat-label class="field-title">Username</mat-label><br>
+      <mat-form-field class="fields">
         <input matInput type="text" [(ngModel)]="name" name="name" placeholder="user name" (ngModelChange)="onDataChange()">
       </mat-form-field><br>
-      <span class="field-title">Email</span><br>
-      <mat-form-field class="example-full-width">
+      <mat-label class="field-title">Email</mat-label><br>
+      <mat-form-field class="fields">
         <input matInput type="email" [(ngModel)]="email" name="email" placeholder="user email" (ngModelChange)="onDataChange()">
       </mat-form-field><br>
-      <span class="field-title">Password</span><br>
-      <mat-form-field class="example-full-width">
+      <mat-label class="field-title">Password</mat-label><br>
+      <mat-form-field class="fields">
         <input matInput type="password" [(ngModel)]="password" name="password" (ngModelChange)="onDataChange()" placeholder="password" autocomplete="off" [type]="hide ? 'password' : 'text'">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>
@@ -19,8 +19,8 @@
           </mat-icon>
         </button>
       </mat-form-field><br>
-      <span class="field-title">Confirm Password</span><br>
-      <mat-form-field class="example-full-width"  [style]="{'margin-bottom': '-15px'}">
+      <mat-label class="field-title">Confirm Password</mat-label><br>
+      <mat-form-field class="fields"  [style]="{'margin-bottom': '-15px'}">
         <input matInput type="password" [(ngModel)]="cpassword" name="cpassword" (ngModelChange)="onDataChange()" placeholder="confirm password" autocomplete="off" [type]="hide ? 'password' : 'text'">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>
@@ -31,11 +31,62 @@
       <div class="wrong-password-alert" *ngIf="incorrect">Aleast 8 character require</div><br>
       <div class="wrong-password-alert" *ngIf="incorrect1">Username or Email Not Available</div><br>
       <div class="wrong-password-alert" *ngIf="incorrect2">Confirm Password Dont match with Password</div><br>
-      <input type="checkbox" id="termsAndConditions" [(ngModel)]="termsAndConditions" name="termsAndConditions" >  <span class="field-title">I agree to the</span><a href="#"> Terms and Conditions</a><br>
+      <input type="checkbox" id="termsAndConditions" [(ngModel)]="termsAndConditions" name="termsAndConditions" >  <mat-label class="field-title">I agree to the</mat-label><a href="#"> Terms and Conditions</a><br>
       <div class="wrong-password-alert" *ngIf="incorrect3">Please Agree to terms and conditions</div><br>
-      <button mat-raised-button color="primary" [disabled]="disable" (click)="onregester()" class="example-full-width" [style]="{'height':'50px','margin-top':''}">Register</button>
+      <button mat-raised-button color="primary" [disabled]="disable" (click)="onregester()" class="fields" [style]="{'height':'50px','margin-top':''}">Register</button>
       <br>
       <div class="comment"> Account Already Exist?<a routerLink="/login">login</a></div>
     </form>
   </div>
+</div> -->
+<div class="back">
+<mat-card align="center" class="container">
+
+  <mat-card-content class="mat-headline-3 heading">Register</mat-card-content>
+
+  <mat-card-content>
+
+
+      <mat-form-field class="fields" floatLabel="always" appearance="outline">
+        <mat-label class="field-title">Username</mat-label>
+        <input matInput type="text" [(ngModel)]="name" name="name"  (ngModelChange)="onDataChange()" required>
+      </mat-form-field><br>
+
+      <mat-form-field class="fields" floatLabel="always" appearance="outline">
+        <mat-label class="field-title">Email</mat-label>
+        <input matInput type="email" [(ngModel)]="email" name="email" (ngModelChange)="onDataChange()" required>
+      </mat-form-field><br>
+
+      <mat-form-field class="fields" floatLabel="always" appearance="outline">
+        <mat-label class="field-title">Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password" name="password" (ngModelChange)="onDataChange()" autocomplete="off" required>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-hint style="color:rgb(157, 154, 154);">min 8 character</mat-hint>
+      </mat-form-field><br><br>
+
+      <mat-form-field class="fields"  [style]="{'margin-bottom': '-15px'}" floatLabel="always" appearance="outline">
+        <mat-label class="field-title">Confirm Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="cpassword" name="cpassword" (ngModelChange)="onDataChange()" autocomplete="off" required>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field><br>
+
+      <mat-label class="field-title"></mat-label><br>
+      <mat-checkbox [(ngModel)]="termsAndConditions" color="primary"> <mat-label class="field-title">I agree to </mat-label><a href="#"> Terms and Conditions</a></mat-checkbox><br>
+
+      <div class="wrong-password-alert" *ngIf="incorrect1">Username or Email Not Available</div>
+      <div class="wrong-password-alert" *ngIf="incorrect2">Confirm Password Dont match with Password</div>
+      <div class="wrong-password-alert" *ngIf="incorrect3">Please Agree to terms and conditions</div>
+
+      <button mat-raised-button color="primary" class="register" [disabled]="disable" (click)="onregester()">Register</button>
+
+      <div> Account Already Exist?<a routerLink="/login">login</a></div>
+
+
+  </mat-card-content>
+
+  </mat-card>
 </div>

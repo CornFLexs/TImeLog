@@ -27,8 +27,9 @@ export class TimelistingComponent implements OnInit , OnDestroy{
 
 
 
-
+  displayedColumns: string[] = ['Start', 'End', 'Minutes', 'Task'];
   DATA: data[] =[];
+  dataSource = this.DATA;
 
   constructor(private timelistingservice : TimelistingserviceService ,private regesertservice : RegesterserviceService) {
     this.todaydate()
@@ -63,6 +64,7 @@ export class TimelistingComponent implements OnInit , OnDestroy{
     this.min = this.calculateTimeDifference(this.st, this.et)
     this.stime = this.convertTo12HourFormat(this.st)
     this.etime = this.convertTo12HourFormat(this.et)
+    this.todayDate = this.convertDateFormat(this.todayDate);
     this.DATA.push({ Starttime: this.stime.toUpperCase(), Endtime: this.etime.toUpperCase(), Minute: this.min, Taskdesc: this.td, date: this.todayDate,username:this.username })
 
 
@@ -103,6 +105,8 @@ export class TimelistingComponent implements OnInit , OnDestroy{
   }
 
   loadData(){
+    this.todayDate = this.convertDateFormat(this.todayDate);
+    console.log(this.todayDate)
     this.timelistingservice.loadData(this.todayDate).subscribe(({ pdata, ttime }) => {
       console.log(pdata);
       this.DATA = pdata;
@@ -174,6 +178,19 @@ export class TimelistingComponent implements OnInit , OnDestroy{
       hours = period === 'PM' && hours !== '12' ? `${parseInt(hours, 10) + 12}` : hours;
 
       return `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`;
+    }
+
+    convertDateFormat(dateString: string): string {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = this.padZero(date.getMonth() + 1);
+      const day = this.padZero(date.getDate());
+
+      return `${year}-${month}-${day}`;
+    }
+
+    padZero(value: number): string {
+      return value.toString().padStart(2, '0');
     }
 
     ngOnDestroy() {

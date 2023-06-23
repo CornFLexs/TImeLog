@@ -1,4 +1,4 @@
-.example-form {
+/* .example-form {
   margin: 0px 10% 1% 15%;
   padding-top: 20px;
   border: solid 2px rgb(199, 195, 195);
@@ -98,12 +98,10 @@
 
 .edit{
   margin-left: 10px;
-  margin-top: 10px
 }
 
 .delete{
  margin-left: 10px;
- margin-top: 10px
 }
 
 .icons{
@@ -114,98 +112,94 @@
 .add{
   margin-left: 80px;
 }
+ */
 
 
-@media screen and (max-width: 480px) {
-  .container{
-    height: 95vh;
-    width: 90%;
-    margin: 0% 0px 2% 5%;
-    background-color:rgb(255, 255, 255);
-    border-radius: 50px;
-    box-shadow: none;
-  }
-  .back{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color:rgb(255, 255, 255);
-    z-index: -1;
-  }
+.logout{
+  margin: 10px 10px 10px 10px;
+  width:7%;
+}
 
-  .load{
-    margin:0 5% auto;
-  }
+.datepicker{
+  width: 250px;
+}
 
-  .date{
-    width:90%;
-    margin-left: -30px;
-  }
+.load{
+  margin-left: 3rem;
+}
 
-  .export{
-    margin:0 5% auto;
-    width:200px;
-  }
+.export{
+  margin-left: 3rem;
+  width: 300px;
+}
 
-  .example-form {
-    margin: 0px 10% 1% 15%;
-    padding-top: 20px;
-    border: none;
-  }
+.datalabel{
+  margin-left: 2rem;
+  margin-top: 20px ;
+}
 
-  .startt{
-    width:140px;
-    margin-left:-15%;
-  }
+.datalabel1{
+  margin-left: 2rem;
+  width: 400px;
+}
 
-  .endt{
-    width:140px;
-    margin-right:-10%;
-  }
+.addedit{
+  margin-left : 3em;
+  margin-top: -15px;
+}
 
-  .desc{
-    margin: 0 0 0 -40px;
-    width: 90%;
-  }
+.delete{
+  margin-left: 5px;
+}
 
-  .table {
-    margin:5% 0;
-    width: auto;
-    font-size: 15px;
-  }
+.container {
+  height: 90%;
+  overflow: auto;
+  box-shadow: 0 4px 6px rgb(204, 214, 231);
+  scrollbar-width:0px; /* Firefox */
+  scrollbar-color: transparent transparent; /* Firefox */
+}
 
-  .table th, .table td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-    max-width: 50px;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-  }
+.container::-webkit-scrollbar {
+  width: 0.5rem; /* Adjust the width as needed */
+}
 
-  .edit{
-    display: block;
-    height: 30px ;
-    margin-top: 5px;
-    margin-left: -5px;
-  }
+.container::-webkit-scrollbar-track {
+  background-color: transparent;
+}
 
-  .delete{
-    height: 30px ;
-    margin-left: 70px;
-    margin-top: -50px;
-  }
+.container::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
 
-  .add{
-    margin-left: 30px;
-    margin-right: -30px;
-  }
 
-  .table th.task-description, .table td.task-description {
-    max-width: 120px;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-  }
+.back{
+  background-color:rgb(225, 230, 239);
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.task-description{
+  max-width: 300px;
+  word-wrap: break-word;
+}
+
+.table-container {
+  height: 570px;
+  overflow-y: auto;
+  scrollbar-color: rgb(225, 230, 239) transparent;
+}
+
+.table-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background-color: rgb(225, 230, 239);
 }

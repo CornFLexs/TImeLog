@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class RegesterserviceService {
 
-  constructor(private http : HttpClient , private router : Router) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   regUser(userData: any) {
     return this.http.post('https://timedlog-backend.onrender.com/api/register', userData);
@@ -21,8 +21,12 @@ export class RegesterserviceService {
     // return this.http.get<{ [key: string]: any }>(`http://localhost:3000/api/register?email=${email}&password=${password}`)
   }
 
-  logout(){
+  logout() {
+    const rememberMeData = localStorage.getItem('rememberMeData');
     localStorage.clear();
+    if (rememberMeData) {
+      localStorage.setItem('rememberMeData', rememberMeData);
+    }
     this.router.navigate(['/login']);
   }
 

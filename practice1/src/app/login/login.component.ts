@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RegesterserviceService } from '../regester/regesterservice.service';
 import { userdata } from '../regester/regester.component';
 import { Router } from '@angular/router';
@@ -8,26 +8,28 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
-  constructor(private regesterservice : RegesterserviceService, private router : Router){}
+  constructor(private regesterservice: RegesterserviceService, private router: Router) { }
 
-  email : string = "";
-  password : string = "";
-  incorrect :boolean = false;
-  disable : boolean = true;
+  email: string = "";
+  password: string = "";
+  incorrect: boolean = false;
+  disable: boolean = true;
   hide = true;
+  rememberme: boolean = false;
+
   customIcon = '../../assets/images/show.png';
   customIcon1 = '../../assets/images/private.png';
 
-  data : userdata[]=[];
+  data: userdata[] = [];
 
-  onDataChange(){
+  onDataChange() {
     if (this.password.length < 8 || !this.email.includes("@") || !this.email.includes(".")) {
-      this.disable=true
+      this.disable = true
     }
-    else{
-      this.disable=false
+    else {
+      this.disable = false
     }
   }
 
@@ -37,7 +39,13 @@ export class LoginComponent {
         (data) => {
           if (data && data['token']) {
             localStorage.setItem('token', data['token']);
-            this.router.navigate(['/timelog']);
+            if (this.rememberme) {
+              const rememberMeData = {
+                email: this.email, password: this.password, rememberme: this.rememberme
+              };
+              localStorage.setItem('rememberMeData',JSON.stringify(rememberMeData));
+              this.router.navigate(['/timelog']);
+            }
           }
         },
         (error) => {
@@ -48,5 +56,20 @@ export class LoginComponent {
           }
         }
       );
+  }
+
+  rememberMeFun() {
+    const rememberMeData = localStorage.getItem('rememberMeData');
+    if (rememberMeData) {
+      const { email, password, rememberme } = JSON.parse(rememberMeData);
+      this.email = email;
+      this.password = password;
+      this.rememberme = rememberme;
+      this.onDataChange();
+    }
+  }
+
+  ngOnInit() {
+    this.rememberMeFun()
   }
 }

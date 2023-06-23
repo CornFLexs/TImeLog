@@ -1,16 +1,16 @@
-<div class="back">
-  <button mat-raised-button style="background-color: #26a1f4; color:white; font-weight:bold;"
+<!-- <div class="back">
+  <button mat-raised-button style="background-color: #4c75e7; color:white; font-weight:bold;"
     [style]="{ float: 'right','margin':'10px 10px 10px 10px' }" (click)="onLogout()">
     logout</button><br />
   <div class="container">
     <mat-form-field class="date">
       <input matInput [(ngModel)]="todayDate" type="date" name="date" />
     </mat-form-field>
-    <button mat-raised-button style="background-color: #26a1f4; color:white; font-weight:bold;" class="load"
+    <button mat-raised-button style="background-color: #4c75e7; color:white; font-weight:bold;" class="load"
       (click)="loadData()">
       LOAD
     </button>
-    <button mat-raised-button style="background-color: #26a1f4; color:white; font-weight:bold;" class="export"
+    <button mat-raised-button style="background-color: #4c75e7; color:white; font-weight:bold;" class="export"
       (click)="exportAreaAsPNG('chart')">
       Export As PNG
     </button>
@@ -43,6 +43,7 @@
               <th>End Time</th>
               <th>Minutes</th>
               <th class="task-description">Task Description</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -50,7 +51,8 @@
               <td>{{ elem.Starttime }}</td>
               <td>{{ elem.Endtime }}</td>
               <td>{{ elem.Minute }}</td>
-              <td class="task-description">{{ elem.Taskdesc }}<br>
+              <td class="task-description">{{ elem.Taskdesc }}</td>
+              <td>
                 <button mat-raised-button style="background-color: #26a1f4;" class="edit" (click)="edittask(elem)">
                   <img src="../../assets/images/pen.png" class="icons">
                 </button>
@@ -66,4 +68,79 @@
       <span [style]="{ 'margin-left': '3%' }">Day Total In Hours: {{ daythr | number : '1.0-2' }}</span>
     </div>
   </div>
+</div> -->
+
+<div class="back">
+<mat-card align="center" class="container">
+
+  <mat-card-actions align="end">
+    <button mat-raised-button color="primary" (click)="onLogout()" class="logout"> <mat-icon>logout</mat-icon> logout </button>
+  </mat-card-actions>
+
+  <mat-card-content>
+    <mat-form-field align="center" class="datepicker">
+      <input matInput [matDatepicker]="mydatepicker" [(ngModel)]="todayDate">
+      <mat-datepicker-toggle [for]="mydatepicker" matSuffix></mat-datepicker-toggle>
+      <mat-datepicker #mydatepicker></mat-datepicker>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" class="load" (click)="loadData()"> <mat-icon>refresh</mat-icon>LOAD</button>
+
+    <button mat-raised-button color="primary" class="export" (click)="exportAreaAsPNG('chart')"><mat-icon>image</mat-icon> Export As PNG</button>
+
+    <mat-divider></mat-divider>
+
+    <mat-form-field class="datalabel" floatLabel="always">
+      <mat-label>Start Time</mat-label>
+      <input matInput [(ngModel)]="st" type="time" name="Starttime">
+    </mat-form-field>
+
+    <mat-form-field class="datalabel" floatLabel="always">
+      <mat-label>End Time</mat-label>
+      <input matInput [(ngModel)]="et" type="time" name="Endtime">
+    </mat-form-field>
+
+    <mat-form-field class="datalabel1" floatLabel="always">
+      <mat-label>Task</mat-label>
+      <input matInput [(ngModel)]="td" name="Description" autocomplete="off">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="addtask()" *ngIf="!edit" class="addedit"><mat-icon>add</mat-icon> add</button>
+    <button mat-raised-button color="primary" (click)="addtask()" *ngIf="edit" class="addedit"><mat-icon>edit</mat-icon> edit</button>
+
+    <mat-divider></mat-divider>
+
+    <div  id="chart" class="table-container" >
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Minutes</th>
+            <th class="task-description">Task Description</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let elem of DATA">
+            <td>{{ elem.Starttime }}</td>
+            <td>{{ elem.Endtime }}</td>
+            <td>{{ elem.Minute }}</td>
+            <td class="task-description">{{ elem.Taskdesc }}</td>
+            <td>
+              <button mat-mini-fab  color="primary" (click)="edittask(elem)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-mini-fab color="warn" class="delete" (click)="deletetask(elem)" >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+  </mat-card-content>
+
+</mat-card>
+
 </div>
