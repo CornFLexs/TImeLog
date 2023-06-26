@@ -20,33 +20,17 @@ const saveData = (req: Request, res: Response) => {
 
 const findData = (req: Request, res: Response) => {
   const { date } = req.query;
-  const token = req.headers['authorization']; // Assuming the token is passed in the 'Authorization' header
-
-  if (!token) {
-    res.status(401).send('Authorization token not provided');
-    return;
-  }
-
-  try {
-    const decodedToken = jwt.verify(token, JWT_SECRET) as { username: string };
-    const username = decodedToken.username;
-
-    Task.find({ date, username })
-      .exec()
-      .then((tasks: ITask[]) => {
-        res.json(tasks);
-        console.log("Success finding");
-      })
-      .catch((err: Error) => {
-        console.error(err);
-        res.status(500).send('Error retrieving tasks');
-      });
-  } catch (err) {
-    console.error(err);
-    res.status(401).send('Invalid token');
-  }
+  Task.find({ date })
+    .exec()
+    .then((tasks: ITask[]) => {
+      res.json(tasks);
+      console.log("Success finding");
+    })
+    .catch((err: Error) => {
+      console.error(err);
+      res.status(500).send('Error retrieving tasks');
+    });
 };
-
 
 const deleteData = (req: Request, res: Response) => {
   const { id } = req.params;
