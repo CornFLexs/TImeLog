@@ -124,5 +124,44 @@ const findUser = (req: Request, res: Response) => {
     });
 };
 
+const findEmail = (req: Request, res: Response) => {
+  const { email } = req.query;
 
-export { saveData, findData, deleteData, updateData, regUser, findUser };
+  UserData.findOne({ Email: email })
+    .exec()
+    .then((userData: IUserData | null) => {
+      if (userData) {
+        res.json(userData);
+        console.log("Success finding email");
+      } else {
+        res.status(404).send('Email not found');
+      }
+    })
+    .catch((err: Error) => {
+      console.error(err);
+      res.status(500).send('Error retrieving email data');
+    });
+};
+
+const updatePassword = async (req: Request, res: Response) => {
+  const email = req.query.email;
+  const newPassword = req.query.newPassword as string;
+
+  try {
+    const userData = await UserData.findOne({ Email: email }).exec();
+
+    if (userData) {
+      const hashPassword = await bcrypt.hash(newPassword, 10);
+      userData.Password = hashPassword;
+      await userData.save();
+      res.status(200).json({ message: 'Password updated successfully' });
+      console.log("Success updating password");
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error updating password' });
+  }
+};
+export { saveData, findData, deleteData, updateData, regUser, findUser , findEmail  , updatePassword };
