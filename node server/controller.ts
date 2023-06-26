@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { Task, ITask } from './model';
 import { UserData , IUserData } from './model1';
 import bcrypt from 'bcrypt';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from './config'; 
 
 const saveData = (req: Request, res: Response) => {
@@ -19,14 +19,8 @@ const saveData = (req: Request, res: Response) => {
 };
 
 const findData = (req: Request, res: Response) => {
-  const { date } = req.query;
-  const token: string | undefined = req.headers.authorization?.split(' ')[1]; // Extract the token from the authorization header
-
-  // Extract the username from the token if it exists, otherwise provide a default value
-  const decodedToken: JwtPayload | null = token ? jwt.verify(token, 'your_secret_key') as JwtPayload : null;
-  const username = decodedToken?.username || '';
-
-  Task.find({ username, date }) // Use the username and date in the query
+  const { date, username } = req.query;
+  Task.find({ date, username })
     .exec()
     .then((tasks: ITask[]) => {
       res.json(tasks);
