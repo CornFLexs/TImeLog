@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import { saveData, findData, deleteData, updateData, regUser, findUser } from './controller';
+import { saveData, findData, deleteData, updateData, regUser, findUser, findEmail, updatePassword } from './controller';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUI from 'swagger-ui-express';
 import { Task } from './model';
@@ -204,6 +204,62 @@ app.post('/api/register', regUser);
  *         description: Error finding user.
  */
 app.get('/api/register', findUser);
+
+/**
+ * @swagger
+ * /api/findEmail:
+ *   get:
+ *     summary: Find an email
+ *     description: Endpoint to find an email.
+ *     parameters:
+ *       - in: query
+ *         name: email
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Email to find.
+ *     responses:
+ *       200:
+ *         description: Successful operation.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: Email not found.
+ *       500:
+ *         description: Error retrieving email data.
+ */
+app.get('/api/findEmail', findEmail);
+
+/**
+ * @swagger
+ * /api/updatePassword:
+ *   put:
+ *     summary: Update user password
+ *     description: Endpoint to update user password.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             properties:
+ *               email:
+ *                 type: string
+ *               newPassword:
+ *                 type: string
+ *             required:
+ *               - email
+ *               - newPassword
+ *     responses:
+ *       200:
+ *         description: Password updated successfully.
+ *       404:
+ *         description: User not found.
+ *       500:
+ *         description: Error updating password.
+ */
+app.get('/api/updatePassword', updatePassword);
 
 app.listen(3000, () => {
   console.log('Server started on port 3000');
