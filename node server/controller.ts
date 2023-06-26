@@ -70,8 +70,12 @@ const regUser = async (req: Request, res: Response) => {
     const existingUser = await UserData.findOne({ Username: username }).exec();
     const existingEmail = await UserData.findOne({ Email: email }).exec();
 
-    if (existingUser || existingEmail) {
+    if (existingUser) {
       res.status(409).send('User already exists');
+      return;
+    }
+    if(existingEmail){
+      res.status(409).send('Email already exists');
       return;
     }
 
