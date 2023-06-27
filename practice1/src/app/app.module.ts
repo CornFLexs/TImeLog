@@ -9,13 +9,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegesterComponent } from './regester/regester.component';
 import { LoginComponent } from './login/login.component';
 import { MaterialModule } from './material/material.module';
-
+import { ThemePalette } from '@angular/material/core';
+import { ForgotpassComponent } from './forgotpass/forgotpass.component';
 @NgModule({
   declarations: [
     AppComponent,
     TimelistingComponent,
     RegesterComponent,
-    LoginComponent
+    LoginComponent,
+    ForgotpassComponent
   ],
   imports: [
     BrowserModule,
@@ -24,6 +26,7 @@ import { MaterialModule } from './material/material.module';
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

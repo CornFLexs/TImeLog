@@ -23,9 +23,12 @@ export class TimelistingserviceService {
   }
 
   //load data from databse for specific date
-  loadData(todayDate:any) {
+  loadData(todayDate: any) {
+    const username = this.nameFromToken();
+    const url = `https://timedlog-backend.onrender.com/api/tasks?date=${todayDate}&username=${username}`;
+
     return this.http
-      .get<{ [key: string]: any }>(`https://timedlog-backend.onrender.com/api/tasks?date=${todayDate}`)
+      .get<{ [key: string]: any }>(url)
       .pipe(
         map((resdata) => {
           const pdata = [];
@@ -39,9 +42,24 @@ export class TimelistingserviceService {
           }
           return { pdata, ttime };
         })
-      )
+      );
   }
 
+  nameFromToken(){
+    const token = localStorage.getItem('token'); // Assuming the token is stored with the key 'token'
+
+    if (token) {
+      const tokenPayload = token.split('.')[1]; // JWT token consists of three parts separated by '.'
+      const base64Url = tokenPayload.replace('-', '+').replace('_', '/');
+      const decodedToken = JSON.parse(window.atob(base64Url));
+      const username = decodedToken.username; // Assuming the username is stored in the 'username' field
+
+      return username
+
+    } else {
+      console.log('Token not found in local storage');
+    }
+  }
 
   //delete data from database
   delData(data: string) {

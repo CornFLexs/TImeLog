@@ -1,0 +1,40 @@
+
+
+<div class="back">
+  <mat-card class="container">
+    <img src="../../assets/images/card.png" class="image">
+
+    <mat-card-content  class="alignment" align="end">
+      <mat-card-content class="mat-headline-4 heading">Reset password</mat-card-content>
+      <mat-form-field class="fields" floatLabel="always" appearance="outline" [color]="incorrect ? 'warn' : 'primary'">
+        <mat-label class="field-title">Email</mat-label>
+        <input matInput type="email" [(ngModel)]="email" name="email" (ngModelChange)="onDataChange()" required>
+      <mat-hint  class="error" *ngIf="incorrect" align="end">Email not found</mat-hint>
+      </mat-form-field><br>
+
+      <button mat-raised-button color="primary" class="find" [disabled]="disable" (click)="onforgot()"> find email </button>
+
+      <br>
+      <mat-card-content class="ef" *ngIf="found">Email found</mat-card-content><mat-icon color="primary" class="icon" *ngIf="found">check_circle</mat-icon>
+    </mat-card-content>
+
+    <mat-card-content  class="alignment2" align="end">
+
+      <mat-form-field class="fields" floatLabel="always" appearance="outline" [color]="incorrect1 ? 'warn' : 'primary'">
+        <mat-label class="field-title">new password</mat-label>
+        <input matInput [(ngModel)]="password" name="password" (ngModelChange)="onDataChange1()" required [disabled]="disable2">
+      </mat-form-field><br>
+      <mat-form-field class="fields" floatLabel="always" appearance="outline" [color]="incorrect1 ? 'warn' : 'primary'">
+        <mat-label class="field-title">confirm password</mat-label>
+        <input matInput [(ngModel)]="cpassword" name="cpassword" (ngModelChange)="onDataChange1()" required [disabled]="disable2">
+        <mat-hint class="error" align="end" *ngIf="incorrect1">password and confirm password dont match</mat-hint>
+      </mat-form-field><br>
+      <button mat-raised-button color="primary" class="find" [disabled]="disable1" (click)="onreset()"> change password</button>
+
+      <mat-card-content class="routess"><a routerLink="/register"> Register</a> | <a routerLink="/login"> login</a></mat-card-content>
+    </mat-card-content>
+
+
+
+    </mat-card>
+  </div>

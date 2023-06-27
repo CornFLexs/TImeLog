@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   email: string = "";
   password: string = "";
   incorrect: boolean = false;
+  incorrect1: boolean = false;
   disable: boolean = true;
   hide = true;
   rememberme: boolean = false;
@@ -51,11 +52,19 @@ export class LoginComponent implements OnInit {
         (error) => {
           if (error.status === 404) {
             this.incorrect = true;
-          } else {
+            this.incorrect1 = false;
+          } else if (error.status === 401) {
+            this.incorrect1 = true;
+            this.incorrect = false;
+          }else {
             console.log('An error occurred:', error);
           }
         }
       );
+  }
+
+  onForgot(){
+    this.router.navigate(['/forgot']);
   }
 
   rememberMeFun() {

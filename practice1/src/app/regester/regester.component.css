@@ -1,39 +1,32 @@
-.wrong-password-alert {
-  padding: 5px;
-  background-color: #ffcccc;
-  color: #ff0000;
-  border: 0.5px solid #ff0000;
-  border-radius: 4px;
-  margin-bottom: 10px;
-  width: 25%;
-  margin-left: auto;
-  margin-right: auto;
+.error{
+  color:red;
 }
 
 .fields{
-  width: 25%;
+  width: 60%;
+  margin-bottom: 10px;
 }
+
 .field-title{
   color:rgb(157, 154, 154);
   font-size: 20px;
 }
 
 .register{
-  width: 25%;
-  height: 12%;
-  margin: 1%  auto;
+  width: 60%;
+  margin:1% 0px 2% auto;
 }
 
 .container{
   width: 85%;
   height: 85%;
   overflow: auto;
-  border-radius: 20px;
-  box-shadow: 0 4px 6px rgb(204, 214, 231);
+  border-radius: 2px;
+  box-shadow: 3px 5px 40px rgb(66, 115, 200);
 }
 
 .back{
-  background-color:rgb(225, 230, 239);
+  background-color:rgb(193, 209, 240);
   width: 100%;
   height: 100%;
   display: flex;
@@ -42,7 +35,7 @@
 }
 
 .heading{
-  margin-top:6%;
+  margin: 3% 0px 5% auto;
   color:rgb(48, 48, 172);
   font-family: 'MyFont';
 }
@@ -50,4 +43,16 @@
 @font-face {
   font-family: 'MyFont';
   src: url('../../assets/fonts/Open_Sans/yes.ttf');
+}
+
+
+.alignment{
+  margin:-55% 0% 0% 45%;
+  text-align:center;
+}
+
+.image{
+  height: 100%;
+  width: 45%;
+  margin-left:-1%;
 }

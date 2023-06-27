@@ -10,8 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule} from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatNativeDateModule } from '@angular/material/core';
-
-
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 const Material =[
   MatFormFieldModule,
@@ -24,7 +23,8 @@ const Material =[
   MatIconModule,
   MatCheckboxModule,
   MatProgressSpinnerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatToolbarModule
 ]
 
 @NgModule({

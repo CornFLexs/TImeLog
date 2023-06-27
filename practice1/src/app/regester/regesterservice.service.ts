@@ -29,5 +29,7 @@ export class RegesterserviceService {
     }
     this.router.navigate(['/login']);
   }
+  
+
 
 }
